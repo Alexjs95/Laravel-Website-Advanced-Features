@@ -2,11 +2,11 @@
 
 @section('content')
     <br>
-    <a href="/assignment-1-laravel-Alexjs95/forum/public/topics" class="btn btn-secondary">Back to topics</a>
+    <a href="{{ action('TopicController@index') }}" class="btn btn-secondary">Back to topics</a>
 
     @if(!Auth::guest())        <!-- if the user is not a guest then show edit/delete buttons -->
         @if(Auth::user()->id == $topic->user_id)    <!-- only enable the edit/delete buttons if the current user is the topic owner -->
-            <a href="/assignment-1-laravel-Alexjs95/forum/public/topics/{{$topic->id}}/edit" class="btn btn-secondary"> Edit topic</a>
+            <a href="{{ action('TopicController@edit', $topic->id) }}" class="btn btn-secondary"> Edit topic</a>
             <br><br>
             {!!Form::open(['action' => ['TopicController@destroy', $topic->id], 'method' => 'POST'])!!}
                 {{Form::hidden('_method', 'DELETE')}}
@@ -21,7 +21,7 @@
   
     <br>
     @if(!Auth::guest())        <!-- if the user is not a guest then show add new message button -->
-        <a href="/assignment-1-laravel-Alexjs95/forum/public/topicposts/create/{{$topic->id}}" class="btn btn-secondary">Add new post to topic</a>
+        <a href="{{ action('TopicPostController@create', $topic->id) }}" class="btn btn-secondary">Add new post to topic</a>
         <br><br>
     @endif
 

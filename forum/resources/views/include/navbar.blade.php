@@ -14,16 +14,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="/assignment-1-laravel-Alexjs95/forum/public">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="{{ action('PagesController@indexPage') }}">Home <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/assignment-1-laravel-Alexjs95/forum/public/about">About</a>
+                                <a class="nav-link" href="{{ action('PagesController@aboutPage') }}">About</a>
                             </li>
                             <li class="nav-item">
-                                    <a class="nav-link" href="/assignment-1-laravel-Alexjs95/forum/public/topics">View Topics</a>
+                                    <a class="nav-link" href="{{ action('TopicController@index') }}">View Topics</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/assignment-1-laravel-Alexjs95/forum/public/topics/create">Create Topic</a>
+                                <a class="nav-link" href="{{ action('TopicController@create') }}">Create Topic</a>
                             </li>
                             
                     </ul>  
@@ -47,7 +47,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class ="dropdown-item" href="/assignment-1-laravel-Alexjs95/forum/public/home"> Dashboard</a>
+                                    <a class ="dropdown-item" href="{{ action('PagesController@indexPage') }}"> Dashboard</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
