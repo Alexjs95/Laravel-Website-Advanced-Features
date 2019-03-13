@@ -1,0 +1,20 @@
+branch-defaults:
+  master:
+    environment: LaravelForum-env
+environment-defaults:
+  LaravelForum-env:
+    branch: null
+    repository: null
+global:
+  application_name: Laravel Forum
+  default_ec2_keyname: null
+  default_platform: arn:aws:elasticbeanstalk:eu-west-1::platform/PHP 7.2 running on
+    64bit Amazon Linux/2.8.7
+  default_region: eu-west-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  sc: git
+  workspace_type: Application
