@@ -14,7 +14,7 @@ class AddUserIdToTopicPosts extends Migration
     public function up()
     {
         Schema::table('topic_posts', function ($table) {
-            $table->integer('user_id');
+            //$table->integer('user_id');
         });
     }
 

@@ -14,12 +14,19 @@
             {!!Form::close()!!}
         @endif
     @endif
-    <br><br>
-    <h1>{{$topic->title}}</h1>
-    
-        <h4>{!!$topic->body!!}</h4>      <!-- double !! to parse html --> 
-  
     <br>
+
+    <div class="card card-body bg-light">
+        <h1>{{$topic->title}}</h1>
+        <h4>{!!$topic->body!!}</h4>      <!-- double !! to parse html -->
+        @if($topic->image != 'noimage.png')
+            <img height="200" width="200" src="{{ URL::to('/') }}/storage/images/{{ $topic->image }}" />
+        @endif
+
+    </div>  <br><br>
+
+
+
     @if(!Auth::guest())        <!-- if the user is not a guest then show add new message button -->
         <a href="{{ action('TopicPostController@create', $topic->id) }}" class="btn btn-secondary">Add new post to topic</a>
         <br><br>

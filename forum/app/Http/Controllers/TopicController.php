@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\Topic;
 use App\TopicPost;
+
 
 class TopicController extends Controller
 {
@@ -50,13 +52,36 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        $this -> validate($request, ['title' => 'required', 'body' => 'required']);
+        $this -> validate($request, [
+            'title' => 'required',
+            'body' => 'required',
+            'image' => 'image|nullable|max:1999'
+        ]);
+
+        // Handle image upload
+        if ($request->hasFile('image') ) {
+            // Get filename with extension
+            $fileNameWithExtension = $request->file('image')->getClientOriginalName();
+            // Get filename
+            $fileName = pathinfo($fileNameWithExtension, PATHINFO_FILENAME);
+            // Get file's extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+
+            // Filename to be stored    includes timestamp to make unique incase other user uploads same image.
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+
+            // Upload image
+            $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.png';
+        }
 
         // create a new topic
         $topic = new Topic;
         $topic->title = $request->input('title');   // sets the title of the topic
         $topic->body = $request->input('body');     // sets the body of the topic.
         $topic->user_id = auth()->user()->id;       // sets the user as the currently logged in user.
+        $topic->image = $fileNameToStore;
         $topic->save();     // store the topic.
         return redirect('/topics')->with('success', 'Topic created');
     }
@@ -104,10 +129,33 @@ class TopicController extends Controller
     {
         $this -> validate($request, ['title' => 'required', 'body' => 'required']);
 
+        // Handle image upload
+        if ($request->hasFile('image') ) {
+            // Get filename with extension
+            $fileNameWithExtension = $request->file('image')->getClientOriginalName();
+            // Get filename
+            $fileName = pathinfo($fileNameWithExtension, PATHINFO_FILENAME);
+            // Get file's extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+
+            // Filename to be stored    includes timestamp to make unique incase other user uploads same image.
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+
+            // Upload image
+            $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
+        }
+
         // Update an existing topic
         $topic = Topic::find($id);
         $topic->title = $request->input('title');
         $topic->body = $request->input('body');
+        if ($request->hasFile('image')) {
+            if ($topic->image != 'noimage.png') {
+                Storage::delete('public/images/'.$topic->image);
+            }
+            $topic->image = $fileNameToStore;
+        }
+
         $topic->save();         // save updates.
         return redirect('/topics')->with('success', 'Topic updated');
     }
@@ -127,6 +175,11 @@ class TopicController extends Controller
         {
             return redirect('topics')->with('error', 'Not authorised to edit topic.'); // return error message
         }
+
+        if ($topic->image != 'noimage.png') {
+            Storage::delete('public/images/'.$topic->image);
+        }
+
         $topic->delete();       // delete topic.
 
         return redirect('/topics')->with('success', 'Topic deleted');   // return success message

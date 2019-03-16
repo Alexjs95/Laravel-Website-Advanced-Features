@@ -11,5 +11,6 @@ Framework choice: Laravel
 
 Features Implemented:
 Hosted on AWS Elastic Beanstalk
-Google a:uthentication using Socialite
+Google authentication using Socialite
 Twitter authentication using Socialite
+CKEditor to allow for HTML in topics
