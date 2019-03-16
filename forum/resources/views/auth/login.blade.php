@@ -66,12 +66,14 @@
                         </div> <hr>
 
                         <div class="btn white darken-4 col s10 m4">
-                            <a href="{{ url('auth/google') }}" style="text-transform:none">
-                                <img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
-                                Login with Google
+                            <a href="{{ url('auth/google') }}" class="btn btn-google" style="text-transform:none">
+                                <i class="fa fa-google"></i> Login with Google
+                            </a>
+
+                            <a href="{{ url('/auth/twitter') }}" class="btn btn-twitter" style="text-transform:none">
+                                <i class="fa fa-twitter"></i> Login with Twitter
                             </a>
                         </div>
-
 
                     </form>
                 </div>

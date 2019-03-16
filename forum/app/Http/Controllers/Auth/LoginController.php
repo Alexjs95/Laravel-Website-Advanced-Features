@@ -48,7 +48,13 @@ class LoginController extends Controller
 
     public function handleProviderCallback($provider)
     {
-        $user = Socialite::driver($provider)->stateless()->user();
+
+        if ($provider == 'twitter') {
+            $user = Socialite::driver($provider)->user();       // Twitter doesn't support OAuth 2.0 so stateless() doesn't work.
+        } else {
+            $user = Socialite::driver($provider)->stateless()->user();
+        }
+
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
         return redirect($this->redirectTo);

@@ -6,4 +6,10 @@ University ID: u1550203
 
 Course: Software Engineering
 
+
 Framework choice: Laravel
+
+Features Implemented:
+Hosted on AWS Elastic Beanstalk
+Google a:uthentication using Socialite
+Twitter authentication using Socialite
