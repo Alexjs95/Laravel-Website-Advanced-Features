@@ -16,9 +16,11 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email')->unique()->nullable()->change;      // nullable as Twitter does not require email
+            $table->string('email')->unique()->nullable();      // nullable as Twitter does not require email
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable()->change;     // nullable because data retrieved from social media accounts will not include password.
+            $table->string('password')->nullable();     // nullable because data retrieved from social media accounts will not include password.
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

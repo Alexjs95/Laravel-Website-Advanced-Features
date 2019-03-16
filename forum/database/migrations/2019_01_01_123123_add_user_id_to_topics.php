@@ -14,7 +14,7 @@ class AddUserIdToTopics extends Migration
     public function up()
     {
         Schema::table('topics', function ($table) {
-            $table->integer('user_id');
+          //  $table->integer('user_id');
         });
     }
 
@@ -25,8 +25,8 @@ class AddUserIdToTopics extends Migration
      */
     public function down()
     {
-        Schema::table('topics', function (Blueprint $table) {
-            $table->dropColumn('user_id');
+        Schema::table('topics', function ($table) {
+          //  $table->dropColumn('user_id');
         });
     }
 }

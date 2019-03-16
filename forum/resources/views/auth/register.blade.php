@@ -1,6 +1,7 @@
 @extends('layouts.forum')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -62,22 +63,19 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <a class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
-                            </div>
-                        </div>
+                            </a>
+                        </div> <hr>
 
-                        <hr>
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <a class="btn btn-github" href="{{ url('/login/github') }}"><i class="fa fa-github"></i> Github</a>
-                                <a class="btn btn-twitter" class="btn btn-twitter" href="{{ url('/login/twitter') }}"><i class="fa fa-twitter"></i> Twitter</a>
-                                <a class="btn btn-facebook" class="btn btn-facebook" href="{{ url('/login/facebook') }}"><i class="fa fa-facebook"></i> Facebook</a>
-                            </div>
+                        <div class="btn white darken-4 col s10 m4">
+                            <a href="{{ url('auth/google') }}" style="text-transform:none">
+                                <img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+                                Register with Google
+                            </a>
                         </div>
-
                     </form>
                 </div>
             </div>
