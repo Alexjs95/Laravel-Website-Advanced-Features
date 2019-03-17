@@ -37,7 +37,39 @@
                         </table>
                     @else
                         <p> No topics found </p>
-                    @endif
+                    @endif<br><br>
+
+                    <h3>Your Location</h3>
+                    <div style="width: 670px; height: 500px;">
+                        {!! Mapper::render() !!}
+                    </div>
+
+                    <script type="text/javascript">
+
+                        function onMapLoad(map)
+                        {
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(
+                                    function(position) {
+                                        var pos = {
+                                            lat: position.coords.latitude,
+                                            lng: position.coords.longitude
+                                        };
+
+                                        var marker = new google.maps.Marker({
+                                            position: pos,
+                                            map: map,
+                                            title: "Location found."
+                                        });
+
+                                        map.setCenter(pos);
+                                    }
+                                );
+                            }
+                        }
+                    </script>
+
+
                 </div>
             </div>
         </div>

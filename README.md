@@ -14,3 +14,4 @@ Hosted on AWS Elastic Beanstalk
 Google authentication using Socialite
 Twitter authentication using Socialite
 CKEditor to allow for HTML in topics
+Googlmapper by Brad Cornford to display users location
