@@ -40,8 +40,9 @@
                     @endif<br><br>
 
                     <h3>Statistics</h3>
-                    <div id="chart-div"></div>
-                    <?= Lava::render('BarChart', 'Topics', 'chart-div') ?>
+                    <div id="chart-div">
+                        <?= Lava::render('BarChart', 'Topics', 'chart-div') ?>
+                    </div>
 
 
 

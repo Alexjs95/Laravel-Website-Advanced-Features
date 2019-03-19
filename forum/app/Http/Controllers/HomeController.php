@@ -31,14 +31,10 @@ class HomeController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
 
-        $topics = Topic::find($user_id);
-
-//        foreach($topics as $item) {
-//            return $item->body;
-//        }
-//        return $topics;
         $date = Carbon::now();
         $firstDateOfMonth = $date->startOfMonth();      // gets first date of current month
+
+        // Finds the first monday of the month from the first date.
         if ($firstDateOfMonth->isMonday()) {
             $firstMonday = $date->startOfMonth();
         } elseif ($firstDateOfMonth->isTuesday()) {
@@ -55,30 +51,38 @@ class HomeController extends Controller
             $firstMonday = $date->addDays(1);
         }
 
-//        return $firstMonday;
-        $secondMonday = $firstMonday->addDays(7);
-        $thirdMonday = $secondMonday->addDays(7);
-        $fourthMonday = $thirdMonday->addDays(7);
+        $firstMonday->toDateString();
+
+        $week1Start = $firstMonday->toDateString();
+        $week1End = $firstMonday->addDays(6)->toDateString();
+        $week1 = $week1Start.' - '.$week1End;
+        $week2Start = $firstMonday->addDays(1)->toDateString();
+        $week2End = $firstMonday->addDays(6)->toDateString();
+        $week2 = $week2Start.' - '.$week2End;
+        $week3Start = $firstMonday->addDays(1)->toDateString();
+        $week3End = $firstMonday->addDays(6)->toDateString();
+        $week3 = $week3Start.' - '.$week3End;
+        $week4Start = $firstMonday->addDays(1)->toDateString();
+        $week4End = $firstMonday->addDays(6)->toDateString();
+        $week4 = $week4Start.' - '.$week4End;
 
 
-
-         $date->startOfMonth();
-
-
-        //weekOfMonth == 3
-        $lava = new Lavacharts;
+        // Gets number of topics posted for the currently logged in user between the start and end of each week in the current month.
+        $week1Topics = Topic::where('user_id', $user_id)->whereBetween('created_at',[$week1Start, $week1End])->count();
+        $week2Topics = Topic::where('user_id', $user_id)->whereBetween('created_at',[$week2Start, $week2End])->count();
+        $week3Topics = Topic::where('user_id', $user_id)->whereBetween('created_at',[$week3Start, $week3End])->count();
+        $week4Topics = Topic::where('user_id', $user_id)->whereBetween('created_at',[$week4Start, $week4End])->count();
 
         $topics = \Lava::DataTable();
-        $topics->addStringColumn('Reasons')
-            ->addNumberColumn('Percent')
-            ->addRow(array('Check Reviews', 5))
-            ->addRow(array('Watch Trailers', 2))
-            ->addRow(array('See Actors Other Work', 4))
-            ->addRow(array('Settle Argument', 89));
-
+        $topics->addStringColumn('Topics')
+            ->addNumberColumn('Count')
+            ->addRow(array($week1, $week1Topics))
+            ->addRow(array($week2, $week2Topics))
+            ->addRow(array($week3, $week3Topics))
+            ->addRow(array($week4, $week4Topics));
 
         $barchart = \Lava::BarChart('Topics', $topics, [
-            'title' => 'Number of Topics posted'
+            'title' => 'Number of Topics posted this month'
         ]);
 
         Mapper::location('Huddersfield')->map(['zoom' => 18, 'center' => true, 'eventAfterLoad' => 'onMapLoad(maps[0].map);']);
