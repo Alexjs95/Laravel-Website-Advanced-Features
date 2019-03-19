@@ -16,7 +16,9 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4.0",
         "unisharp/laravel-ckeditor": "^4.7",
-        "unisharp/laravel-filemanager": "dev-master"
+        "unisharp/laravel-filemanager": "dev-master",
+        "khill/lavacharts" : "3.0.*",
+        "nesbot/carbon" : "1.26.3"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

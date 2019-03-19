@@ -39,6 +39,13 @@
                         <p> No topics found </p>
                     @endif<br><br>
 
+                    <h3>Statistics</h3>
+                    <div id="chart-div"></div>
+                    <?= Lava::render('BarChart', 'Topics', 'chart-div') ?>
+
+
+
+                    <br><br>
                     <h3>Your Location</h3>
                     <div style="width: 670px; height: 500px;">
                         {!! Mapper::render() !!}
