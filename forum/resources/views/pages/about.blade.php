@@ -17,7 +17,9 @@
         <li>Googlmapper by Brad Cornford to display users location</li>
         <li>Application Load Balancer with SSL using AWS certificate manager</li>
         <li>Lavacharts displaying a bar chart showing users how many topics posted per week, makes use of Carbon to get dates</li>
-
+        <li>Google ReCaptcha on registration page</li>
+        <li>Added Gravatar to be displayed once user logs in</li>
+        <li>Implemented pagination to display set number of topics on a page</li>
     </ul>
 @endsection
 

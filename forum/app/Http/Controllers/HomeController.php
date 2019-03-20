@@ -31,6 +31,8 @@ class HomeController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
 
+        $topics = Topic::where('user_id', $user_id)->paginate(5);
+
         $date = Carbon::now();
         $firstDateOfMonth = $date->startOfMonth();      // gets first date of current month
 
@@ -73,19 +75,19 @@ class HomeController extends Controller
         $week3Topics = Topic::where('user_id', $user_id)->whereBetween('created_at',[$week3Start, $week3End])->count();
         $week4Topics = Topic::where('user_id', $user_id)->whereBetween('created_at',[$week4Start, $week4End])->count();
 
-        $topics = \Lava::DataTable();
-        $topics->addStringColumn('Topics')
+        $topicChart = \Lava::DataTable();
+        $topicChart->addStringColumn('Topics')
             ->addNumberColumn('Count')
             ->addRow(array($week1, $week1Topics))
             ->addRow(array($week2, $week2Topics))
             ->addRow(array($week3, $week3Topics))
             ->addRow(array($week4, $week4Topics));
 
-        $barchart = \Lava::BarChart('Topics', $topics, [
+        $barchart = \Lava::BarChart('Topics', $topicChart, [
             'title' => 'Number of Topics posted this month'
         ]);
 
         Mapper::location('Huddersfield')->map(['zoom' => 18, 'center' => true, 'eventAfterLoad' => 'onMapLoad(maps[0].map);']);
-        return view('home')->with('topics', $user->topics);
+        return view('home')->with('topics', $topics);
     }
 }

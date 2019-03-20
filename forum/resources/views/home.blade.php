@@ -38,6 +38,7 @@
                                 </tr>
                             @endforeach
                         </table>
+                    {{$topics->links()}}
                     @else
                         <p> No topics found </p>
                     @endif<br><br>
