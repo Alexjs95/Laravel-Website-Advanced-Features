@@ -7,10 +7,10 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        
+        <!-- Style Sheets-->
         <link rel="stylesheet" href="{{asset('css/app.css')}}"> <!-- uses existing css file containing bootstap-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 
         <title>{{config('app.name', 'ASForum')}}</title>
     </head>
@@ -26,10 +26,12 @@
         <script>
             CKEDITOR.replace( 'article-ckeditor' );
         </script>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
+        <script src='https://www.google.com/recaptcha/api.js'></script>
 
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
         <script>
             $(function() {
                 $( "#datepicker1" ).datepicker({
