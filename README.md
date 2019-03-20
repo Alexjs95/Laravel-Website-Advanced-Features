@@ -18,3 +18,5 @@ Ability to upload images to topics
 Googlmapper by Brad Cornford to display users location
 ALB with SSL using AWS certificate manager
 Lavacharts displaying a bar chart showing users how many topics posted per week, makes use of Carbon to get dates
+Google ReCaptcha on registration page
+Added Gravatar to be displayed once user logs in

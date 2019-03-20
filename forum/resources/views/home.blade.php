@@ -5,7 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">
+                    <img width="40" height="40" src="{{Auth::user()->gravatar }}"/>
+                    Dashboard
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
