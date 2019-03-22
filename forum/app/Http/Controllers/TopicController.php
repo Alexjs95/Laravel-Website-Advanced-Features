@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\Topic;
 use App\TopicPost;
-
+use Illuminate\Support\Facades\DB;
 
 class TopicController extends Controller
 {
@@ -19,7 +19,7 @@ class TopicController extends Controller
     public function __construct()
     {
         // authentication is required on all methods except for index, showing a topic and search.
-        $this->middleware('auth', ['except' =>['index', 'show', 'search']]);
+        $this->middleware('auth', ['except' =>['index', 'show', 'search', 'filter']]);
     }
 
 
@@ -31,7 +31,8 @@ class TopicController extends Controller
     public function index()
     {
         $topics = Topic::orderBy('created_at', 'desc')->paginate(10);       // paginate limits number of topics per page to 10.
-        return view('topics.index')->with('topics', $topics);   // return view with the topics.
+        $replyCount = TopicPost::groupBy('topic_id')->select('topic_id', DB::raw('count(*) as total'))->get();
+        return view('topics.index')->with(compact('topics', 'replyCount'));
     }
 
     /**
@@ -186,15 +187,17 @@ class TopicController extends Controller
     }
 
     /**
-     * Search to find topics based on the authorr.
+     * Search to find topics based on the author.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function search(Request $request)
     {
+        return $request;
         $this -> validate($request, ['search']);        // get search value from blade template
         $search = $request->input('search');
+        return $search;
         $user = User::where('name', $search)->first();        // find the user by name.
         if ($user != null) {
             $id = User::where('name', $search)->first()->id;        // if user isnt null then get ID.
@@ -204,5 +207,29 @@ class TopicController extends Controller
         }
 
         return view('topics.index')->with('topics', $topics);
+    }
+
+    /**
+    * Filter function to filter topics by newest, oldest or most replies.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function filter(Request $request)
+    {
+        $this -> validate($request, ['size']);        // get search value from blade template
+        $filterBy = $request->input('size');
+
+        $replyCount = TopicPost::groupBy('topic_id')->select('topic_id', DB::raw('count(*) as total'))->get();
+
+
+        if($filterBy == "Newest") {
+            $topics = Topic::orderBy('created_at', 'desc')->paginate(10);       // paginate limits number of topics per page to 10.
+        } elseif ($filterBy == "Oldest") {
+            $topics = Topic::orderBy('created_at', 'asc')->paginate(10);       // paginate limits number of topics per page to 10.
+        } elseif ($filterBy == "Replies") {
+
+        }
+        return view('topics.index')->with(compact('topics', 'replyCount'));
     }
 }
