@@ -19,6 +19,7 @@
         <li>Lavacharts displaying a bar chart showing users how many topics posted per week, makes use of Carbon to get dates</li>
         <li>Google ReCaptcha on registration page</li>
         <li>Added Gravatar to be displayed once user logs in</li>
+        <li>Better search mechanism using package searchable by nicolalopezj</li>
         <li>Implemented pagination to display set number of topics on a page</li>
     </ul>
 @endsection

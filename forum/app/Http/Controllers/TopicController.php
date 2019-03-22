@@ -194,19 +194,14 @@ class TopicController extends Controller
      */
     public function search(Request $request)
     {
-        return $request;
         $this -> validate($request, ['search']);        // get search value from blade template
         $search = $request->input('search');
-        return $search;
-        $user = User::where('name', $search)->first();        // find the user by name.
-        if ($user != null) {
-            $id = User::where('name', $search)->first()->id;        // if user isnt null then get ID.
-            $topics = Topic::where('user_id', '=', $id)->paginate(10);      // search for topics by that user ID.
-        } else {
-            return view('topics/index')->withErrors('No search results', 'fail')->with('topics', null);
-        }
 
-        return view('topics.index')->with('topics', $topics);
+        $replyCount = TopicPost::groupBy('topic_id')->select('topic_id', DB::raw('count(*) as total'))->get();
+
+        $topics = Topic::search($search)->with('posts')->paginate(10);
+
+        return view('topics.index')->with(compact('topics', 'replyCount'));
     }
 
     /**

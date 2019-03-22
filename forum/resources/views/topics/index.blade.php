@@ -6,7 +6,7 @@
 
     {!! Form::open(['action' => 'TopicController@search', 'method' => 'GET']) !!}
         <div class="form-group">
-            {{ Form::label('search', 'Search by Author:')}}
+            {{ Form::label('search', 'Search:')}}
             {{ Form::text('search', '') }}
             {{ Form::submit('Search', ['class' => 'btn btn-primary']) }}
             <a href="{{ action('TopicController@index') }}">Reset Search</a>
@@ -15,6 +15,7 @@
 
     {!! Form::open(['action' => 'TopicController@filter', 'method' => 'GET']) !!}
         <div class="form-group">
+            {{ Form::label('filter', 'Filter by:')}}
             {{ Form::select('size', array(''=>'','Newest' => 'Newest', 'Oldest' => 'Oldest'), '1') }}
             {{ Form::submit('Filter', ['class' => 'btn btn-primary']) }}
         </div>
@@ -29,7 +30,6 @@
                     </div>
 
                     <div class="col-md-2">
-
                         @if ($replyCount->contains('topic_id', $topic->id))
                             @foreach ($replyCount as $replies)
                                 @if ($replies->topic_id == $topic->id)

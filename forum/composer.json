@@ -20,7 +20,8 @@
         "laravelcollective/html": "^5.4.0",
         "nesbot/carbon": "1.26.3",
         "unisharp/laravel-ckeditor": "^4.7",
-        "unisharp/laravel-filemanager": "dev-master"
+        "unisharp/laravel-filemanager": "dev-master",
+        "nicolaslopezj/searchable": "1.*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
