@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\Topic;
 use App\TopicPost;
+use App\Purchase;
 use Illuminate\Support\Facades\DB;
 
 class TopicController extends Controller
@@ -42,7 +43,10 @@ class TopicController extends Controller
      */
     public function create()
     {
-        return view('topics.create');       // return view.
+        $user_id = auth()->user()->id;
+        $purchases = Purchase::where([['user_id', '=', $user_id],['item', '=', 'images']])->get();   // checks that user has purchased any perks.
+
+        return view('topics.create')->with('purchases', $purchases);;       // return view.
     }
 
     /**

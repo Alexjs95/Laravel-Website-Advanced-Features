@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Purchase;
 use App\User;
 use App\Topic;
 use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
@@ -32,6 +33,9 @@ class HomeController extends Controller
         $user = User::find($user_id);
 
         $topics = Topic::where('user_id', $user_id)->paginate(5);
+
+        $purchases = Purchase::where('user_id', $user_id)->get();
+
 
         $date = Carbon::now();
         $firstDateOfMonth = $date->startOfMonth();      // gets first date of current month
@@ -88,6 +92,6 @@ class HomeController extends Controller
         ]);
 
         Mapper::location('Huddersfield')->map(['zoom' => 18, 'center' => true, 'eventAfterLoad' => 'onMapLoad(maps[0].map);']);
-        return view('home')->with('topics', $topics);
+        return view('home')->with(compact('topics', 'purchases'));
     }
 }

@@ -31,8 +31,8 @@
                                     <td><a href="{{ action('TopicController@edit', $topic->id) }}" class="btn btn-primary">Edit</a></td>
                                     <td>
                                         {!!Form::open(['action' => ['TopicController@destroy', $topic->id], 'method' => 'POST'])!!}
-                                        {{Form::hidden('_method', 'DELETE')}}
-                                        {{Form::submit('Delete topic', ['class' => 'btn btn-danger'])}}
+                                            {{Form::hidden('_method', 'DELETE')}}
+                                            {{Form::submit('Delete topic', ['class' => 'btn btn-danger'])}}
                                         {!!Form::close()!!}
                                     </td>
                                 </tr>
@@ -43,12 +43,64 @@
                         <p> No topics found </p>
                     @endif<br><br>
 
+
+
+                    <h3>Purchases</h3>
+                    @if (count($purchases) > 0)
+                        @foreach ($purchases as $purchase)
+                            @if ($purchase->item != 'images')
+                                <div class="input-group">
+                                    <p>Purchase ability to add images to topics £0.99</p>
+
+                                    <form action="{{ action('CheckoutController@charge')  }}" method="GET">
+                                        <input name="purchaseType" type="hidden" value="images">
+                                        <script
+                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            data-key="{{ env('STRIPE_PUB_KEY') }}"
+                                            data-amount="99"
+                                            data-name="Subscribe"
+                                            data-description="Add images to topics"
+                                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                            data-locale="auto"
+                                            data-currency="gbp">
+                                        </script>
+                                    </form>
+                                </div>
+                            @else
+                                <p>Ability to add images to topics</p>
+                            @endif
+                        @endforeach
+                    @else
+                        <div class="input-group">
+                            <p>Purchase ability to add images to topics £0.99</p>
+
+                            <form action="{{ action('CheckoutController@charge')  }}" method="GET">
+                                <input name="purchaseType" type="hidden" value="images">
+                                <script
+                                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                    data-key="{{ env('STRIPE_PUB_KEY') }}"
+                                    data-amount="99"
+                                    data-name="Subscribe"
+                                    data-description="Add images to topics"
+                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                    data-locale="auto"
+                                    data-currency="gbp">
+                                </script>
+                            </form>
+                        </div>
+                    @endif
+
+
+
+
+
+
+                    <br><br>
+
                     <h3>Statistics</h3>
                     <div id="chart-div">
                         <?= Lava::render('BarChart', 'Topics', 'chart-div') ?>
                     </div>
-
-
 
                     <br><br>
                     <h3>Your Location</h3>

@@ -19,9 +19,10 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4.0",
         "nesbot/carbon": "1.26.3",
+        "nicolaslopezj/searchable": "1.*",
+        "stripe/stripe-php": "^6.31",
         "unisharp/laravel-ckeditor": "^4.7",
-        "unisharp/laravel-filemanager": "dev-master",
-        "nicolaslopezj/searchable": "1.*"
+        "unisharp/laravel-filemanager": "dev-master"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
