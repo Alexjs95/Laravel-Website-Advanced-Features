@@ -21,7 +21,7 @@
         <li>Added Gravatar to be displayed once user logs in</li>
         <li>Better search mechanism using package searchable by nicolalopezj</li>
         <li>Implemented pagination to display set number of topics on a page</li>
-        <li>Stripe payment so that users can purchase ability to add images to their topics</li>
+        <li>Stripe payment so that users can purchase ability to add images to their to</li>
     </ul>
 @endsection
 

@@ -21,3 +21,5 @@ Lavacharts displaying a bar chart showing users how many topics posted per week,
 Google ReCaptcha on registration page
 Added Gravatar to be displayed once user logs in
 Implemented pagination to display set number of topics on a page
+Better search mechanism using package searchable by nicolalopezj
+Stripe payment so that users can purchase ability to add images to their topic

@@ -90,11 +90,6 @@
                         </div>
                     @endif
 
-
-
-
-
-
                     <br><br>
 
                     <h3>Statistics</h3>
