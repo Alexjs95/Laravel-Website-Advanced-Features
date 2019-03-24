@@ -43,54 +43,25 @@
                         <p> No topics found </p>
                     @endif<br><br>
 
-
-
                     <h3>Purchases</h3>
-                    @if (count($purchases) > 0)
-                        @foreach ($purchases as $purchase)
-                            @if ($purchase->item != 'images')
-                                <div class="input-group">
-                                    <p>Purchase ability to add images to topics £0.99</p>
+                    <table>
+                        @if (count($purchases) > 0)
+                            @foreach ($purchases as $purchase)
+                                <tr>
+                                    @if ($purchase->item != 'images')
+                                            <th>@include('include.purchaseImages')</th>
+                                    @else
+                                        <p>Ability to add images to topics</p>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <th>@include('include.purchaseImages')</th>
+                            </tr>
 
-                                    <form action="{{ action('CheckoutController@charge')  }}" method="GET">
-                                        <input name="purchaseType" type="hidden" value="images">
-                                        <script
-                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                            data-key="{{ env('STRIPE_PUB_KEY') }}"
-                                            data-amount="99"
-                                            data-name="Subscribe"
-                                            data-description="Add images to topics"
-                                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                                            data-locale="auto"
-                                            data-currency="gbp">
-                                        </script>
-                                    </form>
-                                </div>
-                            @else
-                                <p>Ability to add images to topics</p>
-                            @endif
-                        @endforeach
-                    @else
-                        <div class="input-group">
-                            <p>Purchase ability to add images to topics £0.99</p>
-
-                            <form action="{{ action('CheckoutController@charge')  }}" method="GET">
-                                <input name="purchaseType" type="hidden" value="images">
-                                <script
-                                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                    data-key="{{ env('STRIPE_PUB_KEY') }}"
-                                    data-amount="99"
-                                    data-name="Subscribe"
-                                    data-description="Add images to topics"
-                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                                    data-locale="auto"
-                                    data-currency="gbp">
-                                </script>
-                            </form>
-                        </div>
-                    @endif
-
-                    <br><br>
+                        @endif
+                    </table><br><br>
 
                     <h3>Statistics</h3>
                     <div id="chart-div">
@@ -104,7 +75,6 @@
                     </div>
 
                     <script type="text/javascript">
-
                         function onMapLoad(map)
                         {
                             if (navigator.geolocation) {
@@ -127,8 +97,6 @@
                             }
                         }
                     </script>
-
-
                 </div>
             </div>
         </div>

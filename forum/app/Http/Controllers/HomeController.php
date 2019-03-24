@@ -5,11 +5,6 @@ namespace App\Http\Controllers;
 use App\Purchase;
 use App\User;
 use App\Topic;
-use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
-use Khill\Lavacharts\Lavacharts;
-use Khill\Lavacharts\Charts\BarChart;
-use Carbon\Carbon;
-use App\Http\Controllers\GoogleMapTrait;
 
 class HomeController extends Controller
 {
@@ -45,6 +40,6 @@ class HomeController extends Controller
         $map = new HomeController();
         $map->map();
 
-        return view('home')->with(compact('topics', 'purchases'));
+        return view('home')->with(compact('topics', 'purchases', 'invoices'));
     }
 }
