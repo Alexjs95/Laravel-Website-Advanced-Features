@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth'); // requires user to be logged in.
     }
 
     /**
@@ -30,8 +30,10 @@ class HomeController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
 
+        // get topics related to user
         $topics = Topic::where('user_id', $user_id)->paginate(5);
 
+        // get purchases related to user
         $purchases = Purchase::where('user_id', $user_id)->get();
 
         $chart = new HomeController();

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\User;
 use App\Topic;
 use App\TopicPost;
 use App\Purchase;
@@ -176,13 +175,12 @@ class TopicController extends Controller
         $topic = Topic::find($id);
 
         // Ensure correct user is deleting a topic
-        if(auth()->user()->id != $topic->user_id)
-        {
+        if(auth()->user()->id != $topic->user_id) {
             return redirect('topics')->with('error', 'Not authorised to edit topic.'); // return error message
         }
 
         if ($topic->image != 'noimage.png') {
-            Storage::delete('public/images/'.$topic->image);
+            Storage::delete('public/images/'.$topic->image); // delete related image if theere is one.
         }
 
         $topic->delete();       // delete topic.
@@ -201,8 +199,10 @@ class TopicController extends Controller
         $this -> validate($request, ['search']);        // get search value from blade template
         $search = $request->input('search');
 
+        // counts number of replies per topics.
         $replyCount = TopicPost::groupBy('topic_id')->select('topic_id', DB::raw('count(*) as total'))->get();
 
+        // search available topics for search criteria.
         $topics = Topic::search($search)->with('posts')->paginate(10);
 
         return view('topics.index')->with(compact('topics', 'replyCount'));
@@ -219,12 +219,14 @@ class TopicController extends Controller
         $this -> validate($request, ['size']);        // get search value from blade template
         $filterBy = $request->input('size');
 
+        // counts number of replies per topics.
         $replyCount = TopicPost::groupBy('topic_id')->select('topic_id', DB::raw('count(*) as total'))->get();
 
-
         if($filterBy == "Newest") {
+            // filter by newest topics.
             $topics = Topic::orderBy('created_at', 'desc')->paginate(10);       // paginate limits number of topics per page to 10.
         } elseif ($filterBy == "Oldest") {
+            // filter by oldest topics.
             $topics = Topic::orderBy('created_at', 'asc')->paginate(10);       // paginate limits number of topics per page to 10.
         } elseif ($filterBy == "Replies") {
 

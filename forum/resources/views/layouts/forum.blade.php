@@ -32,6 +32,14 @@
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-1544886932221166",
+                enable_page_level_ads: true
+            });
+        </script>
+
         <script>
             $(function() {
                 $( "#datepicker1" ).datepicker({

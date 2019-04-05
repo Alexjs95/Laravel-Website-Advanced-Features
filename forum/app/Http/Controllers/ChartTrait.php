@@ -37,6 +37,7 @@ trait ChartTrait
 
         $firstMonday->toDateString();
 
+        // creates a variable for each week in the month to be displayed as graph rows
         $week1Start = $firstMonday->toDateString().' 00:00:00';
         $week1End = $firstMonday->addDays(6)->toDateString().' 23:59:59';
         $week1 = $week1Start.' - '.$week1End;
@@ -56,6 +57,7 @@ trait ChartTrait
         $week3Topics = Topic::where('user_id', $user_id)->whereBetween('created_at',[$week3Start, $week3End])->count();
         $week4Topics = Topic::where('user_id', $user_id)->whereBetween('created_at',[$week4Start, $week4End])->count();
 
+        // create a laravel chhart
         $topicChart = \Lava::DataTable();
         $topicChart->addStringColumn('Topics')
             ->addNumberColumn('Count')

@@ -15,13 +15,13 @@ Route::get('/', 'PagesController@indexPage');
 
 Route::get('/about', 'PagesController@aboutPage');
 
-Route::resource('topics', 'TopicController'); // Routes to all functions available in the topic controller
 Route::get('topics/filter', 'TopicController@filter');
 Route::get('topics/search', 'TopicController@search');
+Route::resource('topics', 'TopicController'); // Routes to all functions available in the topic controller
 
-Route::resource('topicpost', 'TopicPostController', ['except' => ['create']]);
 Route::get('topicposts/create/{id}', 'TopicPostController@create');
 Route::get('topicposts/store/{id}', 'TopicPostController@store');
+Route::resource('topicpost', 'TopicPostController', ['except' => ['create']]);
 
 Auth::routes();
 	
